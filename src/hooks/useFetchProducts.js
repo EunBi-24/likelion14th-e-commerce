@@ -6,29 +6,27 @@ function useFetchProducts() {
     const [isProductsError, setIsProductsError] = useState(false);
 
     useEffect(() => {
-    async function fetchProducts() {
-        try {
-            setIsProductsLoading(true);
+        async function fetchProducts() {
+            try {
+                setIsProductsLoading(true);
 
-            const response = await fetch("http://localhost:3000/products");
+                const response = await fetch(`${import.meta.env.BASE_URL}db.json`);
 
-            console.log(response);
+                if (!response.ok) {
+                    throw new Error();
+                }
 
-            if(!response.ok) {
-                throw new Error();
+                const json = await response.json();
+
+                setProducts(json.products);
+                setIsProductsLoading(false);
+            } catch {
+                setIsProductsError(true);
+                setIsProductsLoading(false);
             }
-
-            const json = await response.json();
-
-            setProducts(json);
-            setIsProductsLoading(false);
-        } catch {
-            setIsProductsError(true);
-            setIsProductsLoading(false);
         }
-    }
         fetchProducts();
-    }, [])
+    }, []);
 
     return {
         products,

@@ -48,7 +48,7 @@ const Home = () => {
                         return (
                             <Link key={id} to={`/products/${id}`} className={styles.productListItem}>
                             <div>
-                                <img src={image} />
+                                <img src={`${import.meta.env.BASE_URL}${image}`} alt={name} />
                                 <div className={styles.productInfo}>
                                     <div className={styles.productCategory}>{category}</div>
                                     <div className={styles.productName}>{name}</div>

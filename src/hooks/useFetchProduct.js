@@ -8,17 +8,14 @@ function useFetchProduct(productId) {
     useEffect(() => {
         async function fetchProduct() {
             try {
-                const response = await fetch(
-                    `http://localhost:3000/products/${productId}`
-                );
-
-                if(!response.ok) {
-                    throw new Error("");
-                }
+                const response = await fetch(`${import.meta.env.BASE_URL}db.json`);
+                if (!response.ok) throw new Error("");
 
                 const json = await response.json();
+                const found = json.products.find((p) => p.id === String(productId));
+                if (!found) throw new Error("");
 
-                setProduct(json);
+                setProduct(found);
                 setIsProductLoading(false);
             } catch {
                 setIsProductError(true);
@@ -29,11 +26,7 @@ function useFetchProduct(productId) {
         fetchProduct();
     }, [productId]);
 
-    return {
-        product,
-        isProductLoading,
-        isProductError,
-    };
+    return { product, isProductLoading, isProductError };
 }
 
 export default useFetchProduct;

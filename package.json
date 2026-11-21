@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "json-server": "json-server -p 3000 -s ./server/server ./server/server/db.json",
+    "json-server": "json-server -p 3000 -s ./public ./public/db.json",
     "dev": "vite",
     "start:dev": "concurrently \"npm run dev\" \"npm run json-server\"",
     "build": "vite build",
